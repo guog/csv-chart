@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: CSV Chart Backend API
+  description: Monorepo 脚手架后端 API - 健康检查和示例接口
+  version: 1.0.0
+  contact:
+    name: CSV Chart Team
+
+servers:
+  - url: http://localhost:3000
+    description: 开发服务器
+
+paths:
+  /health:
+    get:
+      summary: 健康检查
+      description: 检查后端服务是否正常运行
+      operationId: healthCheck
+      tags:
+        - System
+      responses:
+        '200':
+          description: 服务正常
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                code: 0
+                message: success
+                data:
+                  status: ok
+                  timestamp: '2025-12-31T12:00:00.000Z'
+
+  /api/examples:
+    get:
+      summary: 获取示例列表
+      description: 获取所有示例数据
+      operationId: getExamples
+      tags:
+        - Example
+      responses:
+        '200':
+          description: 成功获取示例列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleListResponse'
+    post:
+      summary: 创建示例
+      description: 创建新的示例数据
+      operationId: createExample
+      tags:
+        - Example
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExampleRequest'
+      responses:
+        '201':
+          description: 成功创建示例
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleResponse'
+
+  /api/examples/{id}:
+    get:
+      summary: 获取单个示例
+      description: 根据 ID 获取示例详情
+      operationId: getExampleById
+      tags:
+        - Example
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功获取示例
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExampleResponse'
+        '404':
+          description: 示例不存在
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 响应码，0 表示成功，其他表示失败
+          example: 0
+        message:
+          type: string
+          description: 响应消息
+          example: success
+        data:
+          description: 响应数据
+
+    HealthResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [ok, error]
+                  example: ok
+                timestamp:
+                  type: string
+                  format: date-time
+                  example: '2025-12-31T12:00:00.000Z'
+
+    Example:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 示例 ID
+          example: clxxxxxxxxxxxxxxxxx
+        name:
+          type: string
+          description: 名称
+          example: 示例名称
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+
+    CreateExampleRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: 名称
+          minLength: 1
+          maxLength: 100
+          example: 示例名称
+
+    ExampleResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Example'
+
+    ExampleListResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Example'
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: 错误码
+          example: -1
+        message:
+          type: string
+          description: 错误消息
+          example: 资源不存在
+
+tags:
+  - name: System
+    description: 系统相关接口
+  - name: Example
+    description: 示例 CRUD 接口
