@@ -32,7 +32,23 @@ export interface ChartConfiguration {
   yAxisColumns: string[];
   /** 图表标题 */
   title?: string;
+  /** 高亮阈值，值 >= 此阈值时红色高亮，null 表示禁用 */
+  highlightThreshold: number | null;
 }
+
+/** 高亮配置常量 */
+export const HIGHLIGHT_CONFIG = {
+  /** 高亮颜色 (Element Plus danger) */
+  HIGHLIGHT_COLOR: '#F56C6C',
+  /** 普通颜色 (Element Plus primary) */
+  NORMAL_COLOR: '#409EFF',
+  /** 高亮数据点大小 (折线图) */
+  HIGHLIGHT_SYMBOL_SIZE: 10,
+  /** 普通数据点大小 (折线图) */
+  NORMAL_SYMBOL_SIZE: 6,
+  /** 默认阈值 */
+  DEFAULT_THRESHOLD: 100,
+} as const;
 
 /** CSV 解析结果（来自 papaparse） */
 export interface CsvParseResult {
@@ -53,11 +69,31 @@ export interface CsvParseResult {
   };
 }
 
+/** ECharts 数据点样式 */
+export interface DataPointStyle {
+  /** 数据点颜色 */
+  color?: string;
+  /** 数据点边框颜色 */
+  borderColor?: string;
+}
+
+/** ECharts 系列数据项（支持样式） */
+export interface ChartDataItem {
+  /** 数值 */
+  value: number | null;
+  /** 数据点样式 */
+  itemStyle?: DataPointStyle;
+  /** 数据点大小（折线图） */
+  symbolSize?: number;
+}
+
 /** ECharts 系列数据 */
 export interface ChartSeriesData {
   name: string;
   type: 'bar' | 'line';
-  data: (number | null)[];
+  data: (number | null | ChartDataItem)[];
+  /** 是否显示数据点标记（折线图） */
+  showSymbol?: boolean;
 }
 
 /** ECharts 选项 */
@@ -67,6 +103,8 @@ export interface ChartOption {
   };
   tooltip?: {
     trigger?: 'axis' | 'item';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    formatter?: ((params: any) => string) | string;
   };
   legend?: {
     data?: string[];

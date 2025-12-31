@@ -5,6 +5,7 @@
  */
 import { computed } from 'vue';
 import { useChartStore } from '@/stores/chart';
+import { HIGHLIGHT_CONFIG } from '@/types/chart';
 
 const chartStore = useChartStore();
 
@@ -39,6 +40,13 @@ const handleYAxisChange = (columns: string[]) => {
  */
 const handleTitleChange = (title: string) => {
   chartStore.updateChartConfig({ title });
+};
+
+/**
+ * 更新高亮阈值
+ */
+const handleHighlightThresholdChange = (value: number | null | undefined) => {
+  chartStore.updateChartConfig({ highlightThreshold: value ?? null });
 };
 </script>
 
@@ -162,6 +170,21 @@ const handleTitleChange = (title: string) => {
           clearable
         />
       </el-form-item>
+
+      <!-- 高亮阈值 -->
+      <el-form-item label="高亮阈值">
+        <div class="threshold-input-wrapper">
+          <el-input-number
+            :model-value="chartConfig.highlightThreshold"
+            @update:model-value="handleHighlightThresholdChange"
+            :placeholder="`默认 ${HIGHLIGHT_CONFIG.DEFAULT_THRESHOLD}`"
+            :controls="true"
+            controls-position="right"
+            style="width: 180px"
+          />
+          <span class="threshold-hint">数值 ≥ 阈值时红色高亮</span>
+        </div>
+      </el-form-item>
     </el-form>
 
     <!-- 配置状态提示 -->
@@ -219,6 +242,17 @@ const handleTitleChange = (title: string) => {
 
 .field-hint.warning {
   color: #e6a23c;
+}
+
+.threshold-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.threshold-hint {
+  font-size: 12px;
+  color: #909399;
 }
 
 .config-hint {

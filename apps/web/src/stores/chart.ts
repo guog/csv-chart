@@ -6,6 +6,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import type { Dataset, ChartConfiguration, ColumnType } from '@/types/chart';
+import { HIGHLIGHT_CONFIG } from '@/types/chart';
 
 export const useChartStore = defineStore('chart', () => {
   // ===== State =====
@@ -19,6 +20,7 @@ export const useChartStore = defineStore('chart', () => {
     xAxisColumn: '',
     yAxisColumns: [],
     title: '',
+    highlightThreshold: HIGHLIGHT_CONFIG.DEFAULT_THRESHOLD,
   });
   
   /** 加载状态 */
@@ -168,6 +170,7 @@ export const useChartStore = defineStore('chart', () => {
       xAxisColumn: '',
       yAxisColumns: [],
       title: '',
+      highlightThreshold: HIGHLIGHT_CONFIG.DEFAULT_THRESHOLD,
     };
     error.value = null;
   }
