@@ -15,9 +15,9 @@
 
 **目的**: 项目初始化和依赖安装
 
-- [ ] T001 安装 `papaparse` 和 `@types/papaparse` 依赖到 apps/web/
-- [ ] T002 安装 `echarts` 依赖到 apps/web/
-- [ ] T003 [P] 创建类型定义文件 apps/web/src/types/chart.ts (基于 contracts/types.ts 定义)
+- [X] T001 安装 `papaparse` 和 `@types/papaparse` 依赖到 apps/web/
+- [X] T002 安装 `echarts` 依赖到 apps/web/
+- [X] T003 [P] 创建类型定义文件 apps/web/src/types/chart.ts (基于 contracts/types.ts 定义)
 
 ---
 
@@ -27,14 +27,14 @@
 
 **⚠️ 关键**: 在此阶段完成之前，不能开始任何用户故事的工作
 
-- [ ] T004 创建 CSV 解析服务 apps/web/src/services/csvParser.ts
+- [X] T004 创建 CSV 解析服务 apps/web/src/services/csvParser.ts
   - 使用 papaparse 解析 CSV 内容
   - 自动检测并解析常见日期格式 (ISO-8601, YYYY-MM-DD, MM/DD/YYYY)
   - 自动检测每列的数据类型 (字符串/数值/日期)
   - 返回包含 headers, data, columnTypes 的 Dataset 对象
-- [ ] T005 [P] 创建 Chart Store (Pinia) apps/web/src/stores/chart.ts
-- [ ] T006 [P] 添加路由配置到 apps/web/src/router/index.ts (添加 /visualization 路由)
-- [ ] T007 创建主视图 apps/web/src/views/VisualizationView.vue
+- [X] T005 [P] 创建 Chart Store (Pinia) apps/web/src/stores/chart.ts
+- [X] T006 [P] 添加路由配置到 apps/web/src/router/index.ts (添加 /visualization 路由)
+- [X] T007 创建主视图 apps/web/src/views/VisualizationView.vue
 
 **检查点**: 基础设施就绪 - 用户故事实现现在可以并行开始
 
@@ -48,20 +48,20 @@
 
 ### 用户故事 1 实现
 
-- [ ] T008 [P] [US1] 创建 CsvUploader 组件 apps/web/src/components/CsvUploader.vue
+- [X] T008 [P] [US1] 创建 CsvUploader 组件 apps/web/src/components/CsvUploader.vue
   - 使用 el-upload 进行文件选择
   - 验证文件大小 <= 10MB
   - 验证文件类型为 .csv
   - 调用 csvParser 服务解析文件
   - 将解析结果存储到 Chart Store
 
-- [ ] T009 [P] [US1] 创建 DataPreview 组件 apps/web/src/components/DataPreview.vue
+- [X] T009 [P] [US1] 创建 DataPreview 组件 apps/web/src/components/DataPreview.vue
   - 使用 el-table 显示数据
   - 显示前 10 行数据
   - 显示所有列标题
   - 支持列宽自适应
 
-- [ ] T010 [US1] 集成 CsvUploader 和 DataPreview 到 VisualizationView.vue
+- [X] T010 [US1] 集成 CsvUploader 和 DataPreview 到 VisualizationView.vue
   - 上传成功后显示预览
   - 显示文件名和文件大小信息
   - 添加"清除数据"按钮
@@ -78,24 +78,24 @@
 
 ### 用户故事 2 实现
 
-- [ ] T011 [P] [US2] 创建 ChartConfigurator 组件 apps/web/src/components/ChartConfigurator.vue
+- [X] T011 [P] [US2] 创建 ChartConfigurator 组件 apps/web/src/components/ChartConfigurator.vue
   - 使用 el-select 选择 X 轴列
   - 使用 el-select (多选) 选择 Y 轴列
   - 使用 el-radio-group 选择图表类型 (柱状图/折线图)
   - 配置变更时更新 Chart Store
 
-- [ ] T012 [P] [US2] 创建 ChartRenderer 组件 apps/web/src/components/ChartRenderer.vue
+- [X] T012 [P] [US2] 创建 ChartRenderer 组件 apps/web/src/components/ChartRenderer.vue
   - 初始化 ECharts 实例
   - 根据 Chart Store 配置渲染图表
   - 支持窗口大小变化时自动调整
   - 支持缩放、平移和工具提示
 
-- [ ] T013 [US2] 在 csvParser.ts 中实现数据过滤逻辑
+- [X] T013 [US2] 在 csvParser.ts 中实现数据过滤逻辑
   - 根据配置过滤数据
   - 过滤掉缺失值行
   - 转换数据为 ECharts 格式
 
-- [ ] T014 [US2] 集成 ChartConfigurator 和 ChartRenderer 到 VisualizationView.vue
+- [X] T014 [US2] 集成 ChartConfigurator 和 ChartRenderer 到 VisualizationView.vue
   - 只有在数据加载后才显示配置器
   - 配置完成后显示图表
   - 图表和配置器响应式布局
@@ -108,11 +108,11 @@
 
 **目的**: 影响多个用户故事的改进
 
-- [ ] T015 [P] 添加错误处理和用户友好的错误消息
-- [ ] T016 [P] 添加加载状态指示器 (解析中/渲染中)
-- [ ] T017 优化大文件性能 (使用 Web Worker 或分块解析)
-- [ ] T018 响应式设计优化 (移动端适配)
-- [ ] T019 运行 quickstart.md 验证
+- [X] T015 [P] 添加错误处理和用户友好的错误消息
+- [X] T016 [P] 添加加载状态指示器 (解析中/渲染中)
+- [X] T017 优化大文件性能 (使用 Web Worker 或分块解析)
+- [X] T018 响应式设计优化 (移动端适配)
+- [X] T019 运行 quickstart.md 验证
 
 ---
 
