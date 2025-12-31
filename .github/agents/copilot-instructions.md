@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-12-31
 
 ## Active Technologies
+- TypeScript 5.x, Vue 3.5+ (002-csv-chart-visualization)
+- In-memory (Pinia store), no backend persistence. (002-csv-chart-visualization)
 
 - TypeScript 5.x, Node.js >=24.11 (001-monorepo-scaffold)
 
@@ -22,6 +24,7 @@ npm test && npm run lint
 TypeScript 5.x, Node.js >=24.11: Follow standard conventions
 
 ## Recent Changes
+- 002-csv-chart-visualization: Added TypeScript 5.x, Vue 3.5+
 
 - 001-monorepo-scaffold: Added TypeScript 5.x, Node.js >=24.11
 
