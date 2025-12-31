@@ -71,14 +71,14 @@ pnpm dev:web
 
 ### 根目录脚本
 
-| 命令 | 说明 |
-|------|------|
-| `pnpm dev` | 同时启动前后端开发服务器 |
-| `pnpm dev:web` | 仅启动前端开发服务器 |
-| `pnpm dev:server` | 仅启动后端开发服务器 |
-| `pnpm build` | 构建所有应用 |
-| `pnpm format` | 格式化所有代码 |
-| `pnpm format:check` | 检查代码格式 |
+| 命令                | 说明                     |
+| ------------------- | ------------------------ |
+| `pnpm dev`          | 同时启动前后端开发服务器 |
+| `pnpm dev:web`      | 仅启动前端开发服务器     |
+| `pnpm dev:server`   | 仅启动后端开发服务器     |
+| `pnpm build`        | 构建所有应用             |
+| `pnpm format`       | 格式化所有代码           |
+| `pnpm format:check` | 检查代码格式             |
 
 ### 前端命令 (apps/web)
 

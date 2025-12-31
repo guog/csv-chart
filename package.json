@@ -1,0 +1,32 @@
+{
+  "name": "@csv-chart/root",
+  "version": "0.0.1",
+  "private": true,
+  "description": "CSV Chart Monorepo - 包含前端和后端应用",
+  "keywords": [
+    "monorepo",
+    "vue",
+    "express",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24.11",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "dev:web": "pnpm --filter @csv-chart/web dev",
+    "dev:server": "pnpm --filter @csv-chart/server dev",
+    "build": "pnpm -r run build",
+    "format": "prettier --write \"**/*.{ts,tsx,vue,json,md,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,vue,json,md,yaml}\"",
+    "clean": "pnpm -r run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  }
+}

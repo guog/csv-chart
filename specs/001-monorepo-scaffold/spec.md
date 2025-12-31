@@ -9,7 +9,7 @@
 
 创建一个完整的 Monorepo（单体仓库）项目脚手架，包含前端和后端应用框架，所有依赖使用阿里云镜像源以加速国内开发者的安装体验。
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - 初始化 Monorepo 项目结构 (Priority: P1)
 
@@ -95,7 +95,7 @@
 - 当阿里云镜像源临时不可用时，开发者可临时注释 .npmrc 中的 registry 配置使用官方源
 - 当前后端端口冲突时，修改 apps/web/vite.config.ts 或 apps/server/.env 中的端口配置
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -121,7 +121,7 @@
 - **Server App (后端)**: Node.js 后端应用，负责业务逻辑和 API 服务
 - **Shared Packages**: 空的共享代码包目录 (packages/)，用于后续按需添加跨应用复用代码
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

@@ -10,7 +10,8 @@
 ## Technical Context
 
 **Language/Version**: TypeScript 5.x, Node.js >=24.11  
-**Primary Dependencies**: 
+**Primary Dependencies**:
+
 - 前端: Vue 3, Vite, Element-plus, Vue Router, Pinia, axios
 - 后端: Express, Prisma, TypeScript
 - 工具: Prettier, pnpm
@@ -25,17 +26,17 @@
 
 ## Constitution Check
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+_GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 Constitution 文件为模板状态，无特定项目约束。以下为通用最佳实践检查：
 
-| 原则 | 状态 | 说明 |
-|------|------|------|
+| 原则       | 状态    | 说明                        |
+| ---------- | ------- | --------------------------- |
 | 模块化设计 | ✅ Pass | Monorepo 结构天然支持模块化 |
-| 类型安全 | ✅ Pass | 全栈使用 TypeScript |
-| 可测试性 | ✅ Pass | 前后端独立可测试 |
-| 代码质量 | ✅ Pass | 配置 Prettier 统一格式化 |
-| 依赖管理 | ✅ Pass | pnpm workspace 统一管理 |
+| 类型安全   | ✅ Pass | 全栈使用 TypeScript         |
+| 可测试性   | ✅ Pass | 前后端独立可测试            |
+| 代码质量   | ✅ Pass | 配置 Prettier 统一格式化    |
+| 依赖管理   | ✅ Pass | pnpm workspace 统一管理     |
 
 **Gate Result**: ✅ PASS - 无违规项
 
@@ -112,11 +113,11 @@ README.md                    # 项目说明
 
 > 无复杂度违规，本功能遵循最小必要原则。
 
-| 项目 | 说明 |
-|------|------|
+| 项目     | 说明                                                      |
+| -------- | --------------------------------------------------------- |
 | 目录数量 | 3 个顶级目录 (apps, packages, specs) - 符合 Monorepo 标准 |
-| 配置文件 | 根目录统一配置，子项目继承 - 无冗余 |
-| 依赖管理 | pnpm workspace 统一管理 - 避免重复安装 |
+| 配置文件 | 根目录统一配置，子项目继承 - 无冗余                       |
+| 依赖管理 | pnpm workspace 统一管理 - 避免重复安装                    |
 
 ## Phase 0: Research Summary
 

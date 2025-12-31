@@ -15,25 +15,25 @@
 
 #### WorkspaceConfig (pnpm-workspace.yaml)
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
+| 属性     | 类型     | 说明             |
+| -------- | -------- | ---------------- |
 | packages | string[] | 工作区包路径模式 |
 
 #### PackageJson (package.json)
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
-| name | string | 包名称 |
-| version | string | 版本号 |
-| scripts | object | npm 脚本 |
-| dependencies | object | 生产依赖 |
-| devDependencies | object | 开发依赖 |
-| engines | object | Node.js 版本要求 |
+| 属性            | 类型   | 说明             |
+| --------------- | ------ | ---------------- |
+| name            | string | 包名称           |
+| version         | string | 版本号           |
+| scripts         | object | npm 脚本         |
+| dependencies    | object | 生产依赖         |
+| devDependencies | object | 开发依赖         |
+| engines         | object | Node.js 版本要求 |
 
 #### NpmConfig (.npmrc)
 
-| 属性 | 类型 | 说明 |
-|------|------|------|
+| 属性     | 类型   | 说明           |
+| -------- | ------ | -------------- |
 | registry | string | npm 镜像源地址 |
 
 ---
@@ -67,12 +67,12 @@ model Example {
 
 ### 字段说明
 
-| 字段 | 类型 | 约束 | 说明 |
-|------|------|------|------|
-| id | String | @id, @default(cuid()) | 主键，使用 CUID 生成 |
-| name | String | 必填 | 名称字段 |
-| createdAt | DateTime | @default(now()) | 创建时间 |
-| updatedAt | DateTime | @updatedAt | 更新时间 |
+| 字段      | 类型     | 约束                  | 说明                 |
+| --------- | -------- | --------------------- | -------------------- |
+| id        | String   | @id, @default(cuid()) | 主键，使用 CUID 生成 |
+| name      | String   | 必填                  | 名称字段             |
+| createdAt | DateTime | @default(now())       | 创建时间             |
+| updatedAt | DateTime | @updatedAt            | 更新时间             |
 
 ---
 
@@ -124,11 +124,7 @@ export interface Example {
 // express.d.ts - Express 扩展类型
 import { Request, Response, NextFunction } from 'express'
 
-export type AsyncHandler = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => Promise<void>
+export type AsyncHandler = (req: Request, res: Response, next: NextFunction) => Promise<void>
 
 // api.ts - API 响应类型
 export interface ApiResponse<T = unknown> {
@@ -169,8 +165,8 @@ export interface ApiResponse<T = unknown> {
 
 ### 后端验证 (示例)
 
-| 字段 | 规则 |
-|------|------|
+| 字段 | 规则                  |
+| ---- | --------------------- |
 | name | 必填，长度 1-100 字符 |
 
 ### 前端验证 (示例)
