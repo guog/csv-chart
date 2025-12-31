@@ -17,7 +17,7 @@
 
 - [ ] T001 安装 `papaparse` 和 `@types/papaparse` 依赖到 apps/web/
 - [ ] T002 安装 `echarts` 依赖到 apps/web/
-- [ ] T003 [P] 创建类型定义文件 apps/web/src/types/chart.ts (从 contracts/types.ts 复制)
+- [ ] T003 [P] 创建类型定义文件 apps/web/src/types/chart.ts (基于 contracts/types.ts 定义)
 
 ---
 
@@ -28,6 +28,10 @@
 **⚠️ 关键**: 在此阶段完成之前，不能开始任何用户故事的工作
 
 - [ ] T004 创建 CSV 解析服务 apps/web/src/services/csvParser.ts
+  - 使用 papaparse 解析 CSV 内容
+  - 自动检测并解析常见日期格式 (ISO-8601, YYYY-MM-DD, MM/DD/YYYY)
+  - 自动检测每列的数据类型 (字符串/数值/日期)
+  - 返回包含 headers, data, columnTypes 的 Dataset 对象
 - [ ] T005 [P] 创建 Chart Store (Pinia) apps/web/src/stores/chart.ts
 - [ ] T006 [P] 添加路由配置到 apps/web/src/router/index.ts (添加 /visualization 路由)
 - [ ] T007 创建主视图 apps/web/src/views/VisualizationView.vue
