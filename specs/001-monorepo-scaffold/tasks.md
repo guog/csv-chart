@@ -105,8 +105,7 @@
 - [ ] T037 [P] [US3] 创建示例控制器 in apps/server/src/controllers/exampleController.ts
 - [ ] T038 [P] [US3] 创建示例服务 in apps/server/src/services/exampleService.ts
 - [ ] T039 [P] [US3] 创建错误处理中间件 in apps/server/src/middlewares/errorHandler.ts
-- [ ] T040 [P] [US3] 创建 controllers 目录占位 in apps/server/src/controllers/.gitkeep
-- [ ] T041 [P] [US3] 创建 models 目录占位 in apps/server/src/models/.gitkeep
+- [ ] T040 [P] [US3] 创建 models 目录占位 in apps/server/src/models/.gitkeep
 
 **Checkpoint**: 运行 `pnpm dev:server`，访问 http://localhost:3000/health 返回 `{"code":0,"message":"success","data":{"status":"ok"}}`
 
@@ -122,8 +121,8 @@
 
 > 已在 Phase 1 (T003) 中完成 .npmrc 配置
 
-- [ ] T042 [US4] 验证镜像源配置生效，运行 pnpm install 安装所有依赖
-- [ ] T043 [US4] 初始化 Prisma 客户端，运行 pnpm --filter @csv-chart/server prisma generate
+- [ ] T041 [US4] 验证镜像源配置生效，运行 pnpm install 安装所有依赖
+- [ ] T042 [US4] 初始化 Prisma 客户端，运行 pnpm --filter @csv-chart/server prisma generate
 
 **Checkpoint**: `pnpm install` 成功完成，依赖从 npmmirror.com 下载
 
@@ -139,8 +138,8 @@
 
 > 已在 Phase 1 (T005, T006) 中完成 Prettier 配置
 
-- [ ] T044 [US5] 在根 package.json 中添加 format 脚本 in package.json
-- [ ] T045 [US5] 运行 pnpm format 验证格式化功能
+- [ ] T043 [US5] 在根 package.json 中添加 format 脚本 in package.json
+- [ ] T044 [US5] 运行 pnpm format 验证格式化功能
 
 **Checkpoint**: 运行 `pnpm format` 和 `pnpm format:check` 正常工作
 
@@ -150,9 +149,9 @@
 
 **Purpose**: 最终验证和文档完善
 
-- [ ] T046 [P] 运行完整的 quickstart.md 验证流程
-- [ ] T047 验证前后端同时启动 pnpm dev
-- [ ] T048 [P] 更新 README.md 添加最终说明
+- [ ] T045 [P] 运行完整的 quickstart.md 验证流程
+- [ ] T046 验证前后端同时启动 pnpm dev
+- [ ] T047 [P] 更新 README.md 添加最终说明
 
 ---
 

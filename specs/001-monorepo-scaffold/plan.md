@@ -50,7 +50,7 @@ specs/001-monorepo-scaffold/
 ├── data-model.md        # Phase 1 数据模型
 ├── quickstart.md        # Phase 1 快速入门指南
 ├── contracts/           # Phase 1 API 契约
-│   └── health-check.yaml
+│   └── api.yaml
 └── tasks.md             # Phase 2 任务分解 (/speckit.tasks 生成)
 ```
 

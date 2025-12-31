@@ -92,8 +92,8 @@
 ### Edge Cases
 
 - 当开发者使用不同版本的 Node.js 时，通过 package.json engines 字段在安装依赖时给出警告提示
-- 当阿里云镜像源临时不可用时，如何处理？
-- 当前后端端口冲突时，如何解决？
+- 当阿里云镜像源临时不可用时，开发者可临时注释 .npmrc 中的 registry 配置使用官方源
+- 当前后端端口冲突时，修改 apps/web/vite.config.ts 或 apps/server/.env 中的端口配置
 
 ## Requirements *(mandatory)*
 
@@ -106,13 +106,13 @@
 - **FR-005**: 系统 MUST 配置 pnpm-workspace.yaml 定义工作区包
 - **FR-006**: 前端应用 MUST 包含 Element-plus UI 组件库依赖
 - **FR-007**: 前端应用 MUST 包含 axios HTTP 请求库依赖
-- **FR-013**: 前端应用 MUST 包含 Vue Router 路由管理库
-- **FR-014**: 前端应用 MUST 包含 Pinia 状态管理库
-- **FR-008**: 后端应用 MUST 包含 Prisma ORM 依赖
-- **FR-009**: 系统 MUST 配置 Prettier 代码格式化工具
-- **FR-010**: 系统 MUST 提供根目录的 package.json，包含常用的 monorepo 脚本命令
-- **FR-011**: 系统 MUST 配置 TypeScript，前后端各有独立的 tsconfig.json
-- **FR-012**: 根目录 package.json MUST 配置 engines 字段指定 Node.js 版本要求 (>=24.11)
+- **FR-008**: 前端应用 MUST 包含 Vue Router 路由管理库
+- **FR-009**: 前端应用 MUST 包含 Pinia 状态管理库
+- **FR-010**: 后端应用 MUST 包含 Prisma ORM 依赖
+- **FR-011**: 系统 MUST 配置 Prettier 代码格式化工具
+- **FR-012**: 系统 MUST 提供根目录的 package.json，包含常用的 monorepo 脚本命令
+- **FR-013**: 系统 MUST 配置 TypeScript，前后端各有独立的 tsconfig.json
+- **FR-014**: 根目录 package.json MUST 配置 engines 字段指定 Node.js 版本要求 (>=24.11)
 
 ### Key Entities
 
@@ -140,6 +140,7 @@
 - Q: Node.js 版本不一致时如何处理？ → A: 仅使用 package.json engines 字段
 - Q: 前端是否需要 Vue Router 和 Pinia？ → A: 同时包含两者
 - Q: 共享代码包目录是否预创建？ → A: 仅创建空的 packages 目录
+- Q: 阿里云镜像源不可用时如何处理？ → A: 开发者可临时注释 .npmrc 中的 registry 配置，使用官方源
 
 ## Assumptions
 
