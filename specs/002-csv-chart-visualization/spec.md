@@ -5,6 +5,16 @@
 **状态**: 草稿
 **输入**: 用户描述: "根据用户上传的csv文件，在浏览器界面中绘制图表"
 
+## 澄清 (Clarifications)
+
+### Session 2025-12-31
+
+- Q: What should be the maximum file size limit for client-side CSV uploads? → A: 10MB.
+- Q: How should the system handle data types for the X-axis column? → A: Auto-detect Dates/Numbers.
+- Q: Which chart library should be used? → A: ECharts.
+- Q: How should the system handle CSV date formats? → A: Best effort auto-detection.
+- Q: How should the system handle missing values? → A: Filter out/Ignore.
+
 ## 用户场景与测试 _(必填)_
 
 ### 用户故事 1 - 上传并预览数据 (优先级: P1)
@@ -40,21 +50,26 @@
 ### 边缘情况
 
 - 当 CSV 文件为空时会发生什么？（应显示空状态或错误）
-- 当选定的 Y 轴列包含非数值数据时会发生什么？（应优雅处理，可能跳过值或显示错误）
-- 当 CSV 文件非常大（> 10MB）时会发生什么？（可能应该有大小限制或警告用户性能问题）
+- 当选定的 Y 轴列包含非数值数据或缺失值时会发生什么？（系统应忽略这些数据点，不进行绘制）
+- **文件大小限制**: 系统应阻止上传超过 10MB 的文件，并显示明确的错误消息。
 
 ## 需求 _(必填)_
 
 ### 功能需求
 
 - **FR-001**: 系统必须提供一个界面，供用户选择并上传本地 CSV 文件。
+- **FR-001.1**: 系统必须限制上传文件的大小不超过 10MB。
 - **FR-002**: 系统必须在浏览器内解析 CSV 内容（客户端处理）。
+- **FR-002.1**: 系统必须尽力自动检测并解析常见的日期格式（例如 ISO-8601, YYYY-MM-DD, MM/DD/YYYY）。
 - **FR-003**: 系统必须显示上传内容的数据预览（例如，表格）。
 - **FR-004**: 系统必须从 CSV 的第一行识别列标题。
 - **FR-005**: 系统必须允许用户选择一列作为 X 轴（维度）。
+- **FR-005.1**: 系统必须自动检测 X 轴列的数据类型（日期、数值或字符串）以优化图表显示（例如时间轴缩放）。
 - **FR-006**: 系统必须允许用户选择一列或多列作为 Y 轴（度量）。
 - **FR-007**: 系统必须至少支持以下图表类型：柱状图、折线图。
 - **FR-008**: 系统必须根据选定的数据和配置渲染可视化。
+- **FR-008.1**: 可视化必须支持交互功能，包括缩放、平移和工具提示（Tooltip）。
+- **FR-008.2**: 系统必须在渲染图表时过滤掉包含缺失值（空单元格）的数据行。
 - **FR-009**: 系统必须允许用户清除当前数据并上传新文件。
 
 ### 成功标准
