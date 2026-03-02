@@ -15,12 +15,6 @@ const router = createRouter({
       // 路由懒加载
       component: () => import('@/views/AboutView.vue'),
     },
-    {
-      path: '/visualization',
-      name: 'visualization',
-      // CSV 图表可视化页面
-      component: () => import('@/views/VisualizationView.vue'),
-    },
   ],
 })
 

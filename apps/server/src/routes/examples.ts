@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { prisma } from '../lib/prisma.js'
 
-export const examplesRouter = Router()
+export const examplesRouter: ReturnType<typeof Router> = Router()
 
 // 获取所有示例
 examplesRouter.get('/', async (_req, res) => {
