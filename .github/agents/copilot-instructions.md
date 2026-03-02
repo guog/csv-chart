@@ -3,6 +3,7 @@
 Auto-generated from all feature plans. Last updated: 2025-12-31
 
 ## Active Technologies
+- SQLite (通过 Prisma ORM) (004-device-ledger)
 
 - TypeScript 5.x, Node.js >=24.11 (001-monorepo-scaffold)
 
@@ -22,6 +23,7 @@ npm test && npm run lint
 TypeScript 5.x, Node.js >=24.11: Follow standard conventions
 
 ## Recent Changes
+- 004-device-ledger: Added TypeScript 5.x, Node.js >=24.11
 
 - 001-monorepo-scaffold: Added TypeScript 5.x, Node.js >=24.11
 

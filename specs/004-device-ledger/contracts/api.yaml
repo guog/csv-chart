@@ -1,0 +1,358 @@
+openapi: 3.0.3
+info:
+  title: Device Ledger API (设备台账)
+  description: 设备基本信息管理 CRUD API
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: 开发服务器
+
+paths:
+  /api/devices:
+    get:
+      summary: 获取设备列表
+      description: 分页获取设备列表，支持按名称或序列号搜索
+      operationId: listDevices
+      parameters:
+        - name: page
+          in: query
+          description: 页码（从 1 开始）
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+        - name: pageSize
+          in: query
+          description: 每页条数
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+        - name: search
+          in: query
+          description: 搜索关键字（匹配名称或序列号）
+          schema:
+            type: string
+      responses:
+        "200":
+          description: 成功返回设备列表
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Device"
+                  total:
+                    type: integer
+                    description: 符合条件的总记录数
+                  page:
+                    type: integer
+                    description: 当前页码
+                  pageSize:
+                    type: integer
+                    description: 每页条数
+                required:
+                  - data
+                  - total
+                  - page
+                  - pageSize
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    post:
+      summary: 创建新设备
+      description: 注册一台新设备到台账
+      operationId: createDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceCreate"
+      responses:
+        "201":
+          description: 设备创建成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Device"
+                required:
+                  - data
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "409":
+          description: 序列号冲突
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "序列号已存在"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+  /api/devices/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: 设备 UUID
+        schema:
+          type: string
+          format: uuid
+
+    get:
+      summary: 获取单个设备详情
+      operationId: getDevice
+      responses:
+        "200":
+          description: 成功返回设备详情
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Device"
+                required:
+                  - data
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    put:
+      summary: 更新设备信息
+      operationId: updateDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DeviceUpdate"
+      responses:
+        "200":
+          description: 设备更新成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Device"
+                required:
+                  - data
+        "400":
+          $ref: "#/components/responses/ValidationError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "409":
+          description: 序列号冲突
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                error: "序列号已存在"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+    delete:
+      summary: 删除设备（硬删除）
+      description: 物理删除设备记录，操作不可逆
+      operationId: deleteDevice
+      responses:
+        "204":
+          description: 设备删除成功（无内容返回）
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
+components:
+  schemas:
+    Device:
+      type: object
+      description: 设备实体
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: 设备唯一标识
+        name:
+          type: string
+          description: 设备名称
+          example: "空调机组 A-01"
+        model:
+          type: string
+          nullable: true
+          description: 设备型号
+          example: "格力 KFR-72LW"
+        serialNumber:
+          type: string
+          description: 序列号（唯一）
+          example: "SN-2026-0001"
+        status:
+          $ref: "#/components/schemas/DeviceStatus"
+        purchaseDate:
+          type: string
+          format: date-time
+          nullable: true
+          description: 购买日期
+          example: "2026-01-15T00:00:00.000Z"
+        location:
+          type: string
+          nullable: true
+          description: 设备位置
+          example: "3号楼 B区 2层"
+        description:
+          type: string
+          nullable: true
+          description: 设备描述
+          example: "中央空调主机组"
+        createdAt:
+          type: string
+          format: date-time
+          description: 创建时间
+        updatedAt:
+          type: string
+          format: date-time
+          description: 更新时间
+      required:
+        - id
+        - name
+        - serialNumber
+        - status
+        - createdAt
+        - updatedAt
+
+    DeviceCreate:
+      type: object
+      description: 创建设备请求体
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: 设备名称
+        model:
+          type: string
+          maxLength: 200
+          description: 设备型号
+        serialNumber:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: 序列号（唯一）
+        status:
+          $ref: "#/components/schemas/DeviceStatus"
+        purchaseDate:
+          type: string
+          format: date-time
+          description: 购买日期
+        location:
+          type: string
+          maxLength: 500
+          description: 设备位置
+        description:
+          type: string
+          maxLength: 1000
+          description: 设备描述
+      required:
+        - name
+        - serialNumber
+
+    DeviceUpdate:
+      type: object
+      description: 更新设备请求体
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 200
+          description: 设备名称
+        model:
+          type: string
+          maxLength: 200
+          description: 设备型号
+        serialNumber:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: 序列号（唯一）
+        status:
+          $ref: "#/components/schemas/DeviceStatus"
+        purchaseDate:
+          type: string
+          format: date-time
+          description: 购买日期
+        location:
+          type: string
+          maxLength: 500
+          description: 设备位置
+        description:
+          type: string
+          maxLength: 1000
+          description: 设备描述
+      required:
+        - name
+        - serialNumber
+
+    DeviceStatus:
+      type: string
+      enum:
+        - IN_USE
+        - STORAGE
+        - MAINTENANCE
+        - SCRAPPED
+      description: |
+        设备状态:
+        - IN_USE: 使用中
+        - STORAGE: 库存
+        - MAINTENANCE: 维修中
+        - SCRAPPED: 报废
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: 错误描述信息
+      required:
+        - error
+
+  responses:
+    ValidationError:
+      description: 请求参数验证失败
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: "name 字段是必需的"
+
+    NotFoundError:
+      description: 资源不存在
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: "设备不存在"
+
+    InternalError:
+      description: 服务器内部错误
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: "服务器内部错误"
