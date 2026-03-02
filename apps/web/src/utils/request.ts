@@ -25,7 +25,8 @@ request.interceptors.request.use(
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse) => {
-    return response
+    // 直接返回响应数据，而不是完整的 response 对象
+    return response.data
   },
   error => {
     console.error('响应错误:', error)

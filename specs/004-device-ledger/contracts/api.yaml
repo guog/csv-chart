@@ -36,7 +36,7 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: 成功返回设备列表
           content:
             application/json:
@@ -46,7 +46,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Device"
+                      $ref: '#/components/schemas/Device'
                   total:
                     type: integer
                     description: 符合条件的总记录数
@@ -61,8 +61,8 @@ paths:
                   - total
                   - page
                   - pageSize
-        "500":
-          $ref: "#/components/responses/InternalError"
+        '500':
+          $ref: '#/components/responses/InternalError'
 
     post:
       summary: 创建新设备
@@ -73,9 +73,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeviceCreate"
+              $ref: '#/components/schemas/DeviceCreate'
       responses:
-        "201":
+        '201':
           description: 设备创建成功
           content:
             application/json:
@@ -83,21 +83,21 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Device"
+                    $ref: '#/components/schemas/Device'
                 required:
                   - data
-        "400":
-          $ref: "#/components/responses/ValidationError"
-        "409":
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
           description: 序列号冲突
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               example:
-                error: "序列号已存在"
-        "500":
-          $ref: "#/components/responses/InternalError"
+                error: '序列号已存在'
+        '500':
+          $ref: '#/components/responses/InternalError'
 
   /api/devices/{id}:
     parameters:
@@ -113,7 +113,7 @@ paths:
       summary: 获取单个设备详情
       operationId: getDevice
       responses:
-        "200":
+        '200':
           description: 成功返回设备详情
           content:
             application/json:
@@ -121,13 +121,13 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Device"
+                    $ref: '#/components/schemas/Device'
                 required:
                   - data
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "500":
-          $ref: "#/components/responses/InternalError"
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
 
     put:
       summary: 更新设备信息
@@ -137,9 +137,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/DeviceUpdate"
+              $ref: '#/components/schemas/DeviceUpdate'
       responses:
-        "200":
+        '200':
           description: 设备更新成功
           content:
             application/json:
@@ -147,35 +147,35 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: "#/components/schemas/Device"
+                    $ref: '#/components/schemas/Device'
                 required:
                   - data
-        "400":
-          $ref: "#/components/responses/ValidationError"
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "409":
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '409':
           description: 序列号冲突
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
               example:
-                error: "序列号已存在"
-        "500":
-          $ref: "#/components/responses/InternalError"
+                error: '序列号已存在'
+        '500':
+          $ref: '#/components/responses/InternalError'
 
     delete:
       summary: 删除设备（硬删除）
       description: 物理删除设备记录，操作不可逆
       operationId: deleteDevice
       responses:
-        "204":
+        '204':
           description: 设备删除成功（无内容返回）
-        "404":
-          $ref: "#/components/responses/NotFoundError"
-        "500":
-          $ref: "#/components/responses/InternalError"
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+        '500':
+          $ref: '#/components/responses/InternalError'
 
 components:
   schemas:
@@ -190,34 +190,34 @@ components:
         name:
           type: string
           description: 设备名称
-          example: "空调机组 A-01"
+          example: '空调机组 A-01'
         model:
           type: string
           nullable: true
           description: 设备型号
-          example: "格力 KFR-72LW"
+          example: '格力 KFR-72LW'
         serialNumber:
           type: string
           description: 序列号（唯一）
-          example: "SN-2026-0001"
+          example: 'SN-2026-0001'
         status:
-          $ref: "#/components/schemas/DeviceStatus"
+          $ref: '#/components/schemas/DeviceStatus'
         purchaseDate:
           type: string
           format: date-time
           nullable: true
           description: 购买日期
-          example: "2026-01-15T00:00:00.000Z"
+          example: '2026-01-15T00:00:00.000Z'
         location:
           type: string
           nullable: true
           description: 设备位置
-          example: "3号楼 B区 2层"
+          example: '3号楼 B区 2层'
         description:
           type: string
           nullable: true
           description: 设备描述
-          example: "中央空调主机组"
+          example: '中央空调主机组'
         createdAt:
           type: string
           format: date-time
@@ -253,7 +253,7 @@ components:
           maxLength: 100
           description: 序列号（唯一）
         status:
-          $ref: "#/components/schemas/DeviceStatus"
+          $ref: '#/components/schemas/DeviceStatus'
         purchaseDate:
           type: string
           format: date-time
@@ -289,7 +289,7 @@ components:
           maxLength: 100
           description: 序列号（唯一）
         status:
-          $ref: "#/components/schemas/DeviceStatus"
+          $ref: '#/components/schemas/DeviceStatus'
         purchaseDate:
           type: string
           format: date-time
@@ -335,24 +335,24 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
           example:
-            error: "name 字段是必需的"
+            error: 'name 字段是必需的'
 
     NotFoundError:
       description: 资源不存在
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
           example:
-            error: "设备不存在"
+            error: '设备不存在'
 
     InternalError:
       description: 服务器内部错误
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/Error"
+            $ref: '#/components/schemas/Error'
           example:
-            error: "服务器内部错误"
+            error: '服务器内部错误'

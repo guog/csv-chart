@@ -52,7 +52,7 @@ curl -X POST http://localhost:3000/api/devices \
 curl "http://localhost:3000/api/devices?page=1&pageSize=20"
 
 # 搜索设备
-curl "http://localhost:3000/api/devices?search=空调"
+curl "http://localhost:3000/api/devices?keyword=空调"
 
 # 获取单个设备
 curl http://localhost:3000/api/devices/{id}
@@ -86,14 +86,14 @@ pnpm test:web
 
 ## 关键文件
 
-| 文件                                      | 说明             |
-| ----------------------------------------- | ---------------- |
-| `apps/server/prisma/schema.prisma`        | Device 数据模型  |
-| `apps/server/src/routes/devices.ts`       | 设备 CRUD API    |
-| `apps/web/src/views/DeviceView.vue`       | 设备管理页面     |
-| `apps/web/src/stores/device.ts`           | 设备 Pinia Store |
-| `apps/web/src/types/device.ts`            | 设备类型定义     |
-| `specs/004-device-ledger/contracts/api.yaml` | API 契约文档  |
+| 文件                                         | 说明             |
+| -------------------------------------------- | ---------------- |
+| `apps/server/prisma/schema.prisma`           | Device 数据模型  |
+| `apps/server/src/routes/devices.ts`          | 设备 CRUD API    |
+| `apps/web/src/views/DeviceView.vue`          | 设备管理页面     |
+| `apps/web/src/stores/device.ts`              | 设备 Pinia Store |
+| `apps/web/src/types/device.ts`               | 设备类型定义     |
+| `specs/004-device-ledger/contracts/api.yaml` | API 契约文档     |
 
 ## 状态枚举参考
 

@@ -11,6 +11,7 @@
 
 **Language/Version**: TypeScript 5.x, Node.js >=24.11
 **Primary Dependencies**:
+
 - 前端: Vue 3, Vite, Element Plus, Vue Router, Pinia, Axios
 - 后端: Express 4, Prisma 6, cors
 
@@ -28,28 +29,28 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 Constitution 文件为模板状态，无特定项目约束。以下为通用最佳实践检查：
 
-| 原则       | 状态    | 说明                                          |
-| ---------- | ------- | --------------------------------------------- |
-| 模块化设计 | ✅ Pass | 路由、模型、页面各自独立模块                  |
-| 类型安全   | ✅ Pass | 全栈 TypeScript，Prisma 生成类型              |
-| 可测试性   | ✅ Pass | API 路由可独立测试，组件可独立渲染            |
-| 代码质量   | ✅ Pass | Prettier 统一格式化                          |
-| 依赖管理   | ✅ Pass | pnpm workspace 统一管理，无新外部依赖        |
-| 数据完整性 | ✅ Pass | 序列号唯一约束由数据库 + 应用层双重保证      |
+| 原则       | 状态    | 说明                                    |
+| ---------- | ------- | --------------------------------------- |
+| 模块化设计 | ✅ Pass | 路由、模型、页面各自独立模块            |
+| 类型安全   | ✅ Pass | 全栈 TypeScript，Prisma 生成类型        |
+| 可测试性   | ✅ Pass | API 路由可独立测试，组件可独立渲染      |
+| 代码质量   | ✅ Pass | Prettier 统一格式化                     |
+| 依赖管理   | ✅ Pass | pnpm workspace 统一管理，无新外部依赖   |
+| 数据完整性 | ✅ Pass | 序列号唯一约束由数据库 + 应用层双重保证 |
 
 **Gate Result**: ✅ PASS — 无违规项
 
 ### Post-Design Re-evaluation (Phase 1 完成后)
 
-| 原则       | 状态    | 说明                                                        |
-| ---------- | ------- | ----------------------------------------------------------- |
+| 原则       | 状态    | 说明                                                          |
+| ---------- | ------- | ------------------------------------------------------------- |
 | 模块化设计 | ✅ Pass | Device 路由独立文件；Vue 视图/Store/类型分离；Prisma 模型独立 |
 | 类型安全   | ✅ Pass | Prisma 生成 Device 类型；前端 `types/device.ts` 共享类型      |
-| 可测试性   | ✅ Pass | Vitest + supertest 覆盖 API；@vue/test-utils 覆盖组件        |
-| 代码质量   | ✅ Pass | Prettier 格式化；手动验证与现有模式一致                      |
-| 依赖管理   | ✅ Pass | 仅测试依赖为新增 (vitest, supertest, @vue/test-utils)        |
-| 数据完整性 | ✅ Pass | DB 唯一约束 + P2002 错误捕获 + 前端表单验证三重保证          |
-| API 设计   | ✅ Pass | OpenAPI 3.0 契约；RESTful；与现有 examples API 风格一致      |
+| 可测试性   | ✅ Pass | Vitest + supertest 覆盖 API；@vue/test-utils 覆盖组件         |
+| 代码质量   | ✅ Pass | Prettier 格式化；手动验证与现有模式一致                       |
+| 依赖管理   | ✅ Pass | 仅测试依赖为新增 (vitest, supertest, @vue/test-utils)         |
+| 数据完整性 | ✅ Pass | DB 唯一约束 + P2002 错误捕获 + 前端表单验证三重保证           |
+| API 设计   | ✅ Pass | OpenAPI 3.0 契约；RESTful；与现有 examples API 风格一致       |
 
 **Post-Design Gate Result**: ✅ PASS — 设计符合所有原则
 

@@ -15,6 +15,12 @@ const router = createRouter({
       // 路由懒加载
       component: () => import('@/views/AboutView.vue'),
     },
+    {
+      path: '/devices',
+      name: 'devices',
+      // 路由懒加载
+      component: () => import('@/views/DeviceView.vue'),
+    },
   ],
 })
 

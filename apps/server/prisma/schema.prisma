@@ -20,3 +20,18 @@ model Example {
 
   @@map("examples")
 }
+
+model Device {
+  id           String    @id @default(uuid())
+  name         String
+  model        String?
+  serialNumber String    @unique
+  status       String    @default("IN_USE")
+  purchaseDate DateTime?
+  location     String?
+  description  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@map("devices")
+}

@@ -12,13 +12,13 @@
 
 ### Rationale
 
-| 维度 | Offset 分页 | Cursor 分页 |
-|------|------------|------------|
-| 实现复杂度 | 低 — `skip` + `take` 直接映射 Element Plus 分页组件的 `currentPage` / `pageSize` | 高 — 需要额外维护 cursor 状态、编码/解码 cursor 值 |
-| 前端适配 | `el-pagination` 天然支持页码跳转 | 需要自定义"加载更多"或重写分页逻辑 |
-| 数据规模 | 10,000 条记录，offset 性能完全可接受（SQLite 全在本地，无网络开销） | Cursor 分页在百万级数据或分布式场景才有明显优势 |
-| 随机跳页 | ✅ 支持跳转到任意页 | ❌ 只能向前/向后遍历 |
-| SQLite 适配 | SQLite 的 `LIMIT ... OFFSET ...` 效率在万级数据下表现良好 | 同样支持，但收益不明显 |
+| 维度        | Offset 分页                                                                      | Cursor 分页                                        |
+| ----------- | -------------------------------------------------------------------------------- | -------------------------------------------------- |
+| 实现复杂度  | 低 — `skip` + `take` 直接映射 Element Plus 分页组件的 `currentPage` / `pageSize` | 高 — 需要额外维护 cursor 状态、编码/解码 cursor 值 |
+| 前端适配    | `el-pagination` 天然支持页码跳转                                                 | 需要自定义"加载更多"或重写分页逻辑                 |
+| 数据规模    | 10,000 条记录，offset 性能完全可接受（SQLite 全在本地，无网络开销）              | Cursor 分页在百万级数据或分布式场景才有明显优势    |
+| 随机跳页    | ✅ 支持跳转到任意页                                                              | ❌ 只能向前/向后遍历                               |
+| SQLite 适配 | SQLite 的 `LIMIT ... OFFSET ...` 效率在万级数据下表现良好                        | 同样支持，但收益不明显                             |
 
 ### 实现模式
 
@@ -68,10 +68,7 @@ const status = req.query.status as string | undefined
 
 const where: Prisma.DeviceWhereInput = {
   ...(search && {
-    OR: [
-      { name: { contains: search } },
-      { serialNumber: { contains: search } },
-    ],
+    OR: [{ name: { contains: search } }, { serialNumber: { contains: search } }],
   }),
   ...(status && { status }),
 }
@@ -80,6 +77,7 @@ const where: Prisma.DeviceWhereInput = {
 ### 关于大小写敏感性
 
 SQLite + Prisma 的 `contains` 在 `mode: 'insensitive'` 设置上不如 PostgreSQL 完善。但因为：
+
 - 设备名称 / 序列号以中文或大写英文编号为主
 - 10,000 条记录扫描代价极低
 - 不建议使用 `mode: 'insensitive'`（Prisma SQLite 驱动不一定支持）
@@ -133,10 +131,10 @@ try {
 
 ### 关于 "先查后写" vs "直接写 + 捕获异常"
 
-| 方式 | 优点 | 缺点 |
-|------|------|------|
-| 先查后写 (`findUnique` → `create`) | 可在创建前给出友好提示 | 存在 TOCTOU 竞态条件；多一次查询 |
-| 直接写 + 捕获 `P2002` | 原子操作，无竞态；单次查询 | 需要解析异常 |
+| 方式                               | 优点                       | 缺点                             |
+| ---------------------------------- | -------------------------- | -------------------------------- |
+| 先查后写 (`findUnique` → `create`) | 可在创建前给出友好提示     | 存在 TOCTOU 竞态条件；多一次查询 |
+| 直接写 + 捕获 `P2002`              | 原子操作，无竞态；单次查询 | 需要解析异常                     |
 
 **选择直接写 + 捕获**，因为数据库约束是唯一可信的仲裁者。在更新场景（`update`）中同样适用。
 
@@ -163,13 +161,13 @@ if (!name || typeof name !== 'string') {
 }
 ```
 
-| 维度 | 手动验证 | Zod |
-|------|---------|-----|
-| 一致性 | ✅ 与现有 `examples.ts` 模式一致 | ❌ 引入新模式，现有代码需要重构或存在不一致 |
-| 依赖 | ✅ 零依赖 | ❌ 新增依赖 (zod ~50KB) |
-| 类型推断 | ❌ 需手动声明类型 | ✅ 自动推断 TypeScript 类型 |
-| 维护成本 | 中等 — Device 字段有限 (7 个字段) | 低 — Schema 即文档 |
-| 学习曲线 | ✅ 无 | 低 — 但对团队是新概念 |
+| 维度     | 手动验证                          | Zod                                         |
+| -------- | --------------------------------- | ------------------------------------------- |
+| 一致性   | ✅ 与现有 `examples.ts` 模式一致  | ❌ 引入新模式，现有代码需要重构或存在不一致 |
+| 依赖     | ✅ 零依赖                         | ❌ 新增依赖 (zod ~50KB)                     |
+| 类型推断 | ❌ 需手动声明类型                 | ✅ 自动推断 TypeScript 类型                 |
+| 维护成本 | 中等 — Device 字段有限 (7 个字段) | 低 — Schema 即文档                          |
+| 学习曲线 | ✅ 无                             | 低 — 但对团队是新概念                       |
 
 **对于 Device 实体（7 个字段）的验证复杂度，手动验证完全可控。** 如果未来实体数量增长或验证规则变复杂，可以再引入 Zod。
 
@@ -179,14 +177,21 @@ if (!name || typeof name !== 'string') {
 // 提取可复用的验证辅助函数
 function validateDeviceInput(body: Record<string, unknown>) {
   const errors: string[] = []
-  
+
   if (!body.name || typeof body.name !== 'string' || body.name.trim() === '') {
     errors.push('name 是必填字段')
   }
-  if (!body.serialNumber || typeof body.serialNumber !== 'string' || body.serialNumber.trim() === '') {
+  if (
+    !body.serialNumber ||
+    typeof body.serialNumber !== 'string' ||
+    body.serialNumber.trim() === ''
+  ) {
     errors.push('serialNumber 是必填字段')
   }
-  if (body.status && !['IN_USE', 'STORAGE', 'MAINTENANCE', 'SCRAPPED'].includes(body.status as string)) {
+  if (
+    body.status &&
+    !['IN_USE', 'STORAGE', 'MAINTENANCE', 'SCRAPPED'].includes(body.status as string)
+  ) {
     errors.push('status 必须是 IN_USE, STORAGE, MAINTENANCE, SCRAPPED 之一')
   }
   if (body.purchaseDate && isNaN(Date.parse(body.purchaseDate as string))) {
@@ -306,14 +311,14 @@ onMounted(fetchDevices)
 
 ### 关键设计点
 
-| 设计点 | 决策 | 原因 |
-|--------|------|------|
-| 分页位置 | 服务器端 | 10,000 条数据不适合一次性传输 |
-| 搜索触发 | debounce 300ms | 平衡实时性和请求频率 |
-| 搜索重置 | 搜索时回到第 1 页 | 避免搜索后仍在高页码导致空结果 |
-| 状态管理 | Pinia Store | 与现有 `counter.ts` 模式一致 |
-| 加载状态 | `v-loading` 指令 | Element Plus 内置，用户体验好 |
-| 空状态 | `el-empty` 组件 | 无数据时友好提示 |
+| 设计点        | 决策                | 原因                                               |
+| ------------- | ------------------- | -------------------------------------------------- |
+| 分页位置      | 服务器端            | 10,000 条数据不适合一次性传输                      |
+| 搜索触发      | debounce 300ms      | 平衡实时性和请求频率                               |
+| 搜索重置      | 搜索时回到第 1 页   | 避免搜索后仍在高页码导致空结果                     |
+| 状态管理      | Pinia Store         | 与现有 `counter.ts` 模式一致                       |
+| 加载状态      | `v-loading` 指令    | Element Plus 内置，用户体验好                      |
+| 空状态        | `el-empty` 组件     | 无数据时友好提示                                   |
 | Debounce 实现 | 手写或 `setTimeout` | 不需要引入 `@vueuse/core` 新依赖，3 行代码即可实现 |
 
 ### Debounce 不引入新依赖的实现
@@ -340,12 +345,12 @@ const debouncedSearch = () => {
 
 ## Summary Matrix
 
-| # | 问题 | 决策 | 复杂度 | 新依赖 |
-|---|------|------|--------|--------|
-| 1 | 分页模式 | Offset (`skip`/`take`) | 低 | 无 |
-| 2 | 搜索模式 | Prisma `contains` + `OR` | 低 | 无 |
-| 3 | 唯一约束 | 捕获 `P2002` → HTTP 409 | 低 | 无 |
-| 4 | 请求验证 | 手动验证（保持一致性） | 中 | 无 |
-| 5 | 前端表格 | `el-table` + `el-pagination` + 服务器端分页 | 中 | 无 |
+| #   | 问题     | 决策                                        | 复杂度 | 新依赖 |
+| --- | -------- | ------------------------------------------- | ------ | ------ |
+| 1   | 分页模式 | Offset (`skip`/`take`)                      | 低     | 无     |
+| 2   | 搜索模式 | Prisma `contains` + `OR`                    | 低     | 无     |
+| 3   | 唯一约束 | 捕获 `P2002` → HTTP 409                     | 低     | 无     |
+| 4   | 请求验证 | 手动验证（保持一致性）                      | 中     | 无     |
+| 5   | 前端表格 | `el-table` + `el-pagination` + 服务器端分页 | 中     | 无     |
 
 **总体策略**: 零新依赖，全部使用现有技术栈能力实现。与现有代码风格与模式保持高度一致。

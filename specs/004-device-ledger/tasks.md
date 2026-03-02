@@ -24,10 +24,10 @@
 
 **目标**: 项目初始化和共享基础设施
 
-- [ ] T001 在 `apps/server/prisma/schema.prisma` 中添加 Device 模型
-- [ ] T002 执行 Prisma 迁移创建 devices 表 (`npx prisma migrate dev --name add-device-model`)
-- [ ] T003 [P] 在 `apps/web/src/types/device.ts` 中创建设备类型定义和状态枚举
-- [ ] T004 [P] 在 `apps/web/src/api/device.ts` 中创建设备 API 服务模块 (axios 封装)
+- [x] T001 在 `apps/server/prisma/schema.prisma` 中添加 Device 模型
+- [x] T002 执行 Prisma 迁移创建 devices 表 (`npx prisma migrate dev --name add-device-model`)
+- [x] T003 [P] 在 `apps/web/src/types/device.ts` 中创建设备类型定义和状态枚举
+- [x] T004 [P] 在 `apps/web/src/api/device.ts` 中创建设备 API 服务模块 (axios 封装)
 
 **检查点**: 数据库 Schema 就绪，共享类型可用，API 客户端准备完毕
 
@@ -39,11 +39,11 @@
 
 **⚠️ 关键**: 此阶段完成前，不能开始任何用户故事的开发
 
-- [ ] T005 在 `apps/server/src/routes/devices.ts` 中创建设备 CRUD 路由文件并导出 router
-- [ ] T006 在 `apps/server/src/index.ts` 中注册设备路由到 `/api/devices`
-- [ ] T007 [P] 在 `apps/web/src/views/DeviceView.vue` 中创建 DeviceView 页面骨架（空组件）
-- [ ] T008 [P] 在 `apps/web/src/stores/device.ts` 中创建设备 Pinia store 骨架
-- [ ] T009 在 `apps/web/src/router/index.ts` 中添加 `/devices` 路由
+- [x] T005 在 `apps/server/src/routes/devices.ts` 中创建设备 CRUD 路由文件并导出 router
+- [x] T006 在 `apps/server/src/index.ts` 中注册设备路由到 `/api/devices`
+- [x] T007 [P] 在 `apps/web/src/views/DeviceView.vue` 中创建 DeviceView 页面骨架（空组件）
+- [x] T008 [P] 在 `apps/web/src/stores/device.ts` 中创建设备 Pinia store 骨架
+- [x] T009 在 `apps/web/src/router/index.ts` 中添加 `/devices` 路由
 
 **检查点**: 基础设施就绪 — 后端路由已注册，前端页面可通过 `/devices` 访问
 
@@ -57,14 +57,14 @@
 
 ### 用户故事 1 实现
 
-- [ ] T010 [US1] 在 `apps/server/src/routes/devices.ts` 中实现 GET `/api/devices` 端点，支持 offset 分页 (`skip`/`take`) 和总数统计
-- [ ] T011 [US1] 在 `apps/server/src/routes/devices.ts` 中为 GET `/api/devices` 添加搜索/过滤支持 (Prisma `contains` + `OR` 匹配 name/serialNumber)
-- [ ] T012 [US1] 在 `apps/web/src/stores/device.ts` 中实现 `fetchDevices(page, pageSize, search)` action 和状态
-- [ ] T013 [US1] 在 `apps/web/src/views/DeviceView.vue` 中使用 `el-table` 实现设备列表表格，显示 name, model, serialNumber, status, location 列
-- [ ] T014 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加 `el-pagination` 组件实现服务端分页
-- [ ] T015 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加搜索输入框，300ms 防抖，按 name/serialNumber 过滤
-- [ ] T016 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加空状态显示 ("未找到设备")
-- [ ] T017 [US1] 在 `apps/web/src/views/DeviceView.vue` 中为状态列添加彩色 `el-tag` 渲染 (IN_USE=绿色, STORAGE=蓝色, MAINTENANCE=橙色, SCRAPPED=红色)
+- [x] T010 [US1] 在 `apps/server/src/routes/devices.ts` 中实现 GET `/api/devices` 端点，支持 offset 分页 (`skip`/`take`) 和总数统计
+- [x] T011 [US1] 在 `apps/server/src/routes/devices.ts` 中为 GET `/api/devices` 添加搜索/过滤支持 (Prisma `contains` + `OR` 匹配 name/serialNumber)
+- [x] T012 [US1] 在 `apps/web/src/stores/device.ts` 中实现 `fetchDevices(page, pageSize, search)` action 和状态
+- [x] T013 [US1] 在 `apps/web/src/views/DeviceView.vue` 中使用 `el-table` 实现设备列表表格，显示 name, model, serialNumber, status, location 列
+- [x] T014 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加 `el-pagination` 组件实现服务端分页
+- [x] T015 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加搜索输入框，300ms 防抖，按 name/serialNumber 过滤
+- [x] T016 [US1] 在 `apps/web/src/views/DeviceView.vue` 中添加空状态显示 ("未找到设备")
+- [x] T017 [US1] 在 `apps/web/src/views/DeviceView.vue` 中为状态列添加彩色 `el-tag` 渲染 (IN_USE=绿色, STORAGE=蓝色, MAINTENANCE=橙色, SCRAPPED=红色)
 
 **检查点**: 设备列表功能完整 — 分页表格、搜索、空状态。US1 可独立测试。
 
@@ -78,14 +78,14 @@
 
 ### 用户故事 2 实现
 
-- [ ] T018 [US2] 在 `apps/server/src/routes/devices.ts` 中实现 POST `/api/devices` 端点，验证请求体 (name, serialNumber 必填)
-- [ ] T019 [US2] 在 `apps/server/src/routes/devices.ts` 中添加 Prisma P2002 唯一约束错误处理，重复 serialNumber 返回 HTTP 409
-- [ ] T020 [US2] 在 `apps/server/src/routes/devices.ts` 中为 POST 端点添加状态枚举验证 (IN_USE, STORAGE, MAINTENANCE, SCRAPPED)
-- [ ] T021 [US2] 在 `apps/web/src/stores/device.ts` 中实现 `createDevice(data)` action
-- [ ] T022 [US2] 在 `apps/web/src/views/DeviceView.vue` 中添加"添加设备"按钮和 `el-dialog` 表单，包含字段 (name, model, serialNumber, purchaseDate, status, location, description)
-- [ ] T023 [US2] 在 `apps/web/src/views/DeviceView.vue` 中使用 Element Plus 表单规则添加前端表单验证 (name/serialNumber 必填, status 下拉选择)
-- [ ] T024 [US2] 在 `apps/web/src/views/DeviceView.vue` 中处理 409 冲突错误 (重复 serialNumber)，显示友好的 `ElMessage.error` 通知
-- [ ] T025 [US2] 在 `apps/web/src/views/DeviceView.vue` 中创建成功后自动刷新设备列表
+- [x] T018 [US2] 在 `apps/server/src/routes/devices.ts` 中实现 POST `/api/devices` 端点，验证请求体 (name, serialNumber 必填)
+- [x] T019 [US2] 在 `apps/server/src/routes/devices.ts` 中添加 Prisma P2002 唯一约束错误处理，重复 serialNumber 返回 HTTP 409
+- [x] T020 [US2] 在 `apps/server/src/routes/devices.ts` 中为 POST 端点添加状态枚举验证 (IN_USE, STORAGE, MAINTENANCE, SCRAPPED)
+- [x] T021 [US2] 在 `apps/web/src/stores/device.ts` 中实现 `createDevice(data)` action
+- [x] T022 [US2] 在 `apps/web/src/views/DeviceView.vue` 中添加"添加设备"按钮和 `el-dialog` 表单，包含字段 (name, model, serialNumber, purchaseDate, status, location, description)
+- [x] T023 [US2] 在 `apps/web/src/views/DeviceView.vue` 中使用 Element Plus 表单规则添加前端表单验证 (name/serialNumber 必填, status 下拉选择)
+- [x] T024 [US2] 在 `apps/web/src/views/DeviceView.vue` 中处理 409 冲突错误 (重复 serialNumber)，显示友好的 `ElMessage.error` 通知
+- [x] T025 [US2] 在 `apps/web/src/views/DeviceView.vue` 中创建成功后自动刷新设备列表
 
 **检查点**: 设备创建功能完整 — 表单验证、重复检测、列表刷新。US2 可独立测试。
 
@@ -99,13 +99,13 @@
 
 ### 用户故事 3 实现
 
-- [ ] T026 [US3] 在 `apps/server/src/routes/devices.ts` 中实现 GET `/api/devices/:id` 端点获取单个设备
-- [ ] T027 [US3] 在 `apps/server/src/routes/devices.ts` 中实现 PUT `/api/devices/:id` 端点，包含验证和 P2002 处理 (唯一性检查排除自身)
-- [ ] T028 [US3] 在 `apps/web/src/stores/device.ts` 中实现 `updateDevice(id, data)` action
-- [ ] T029 [US3] 在 `apps/web/src/views/DeviceView.vue` 中为表格每行添加"编辑"操作按钮
-- [ ] T030 [US3] 在 `apps/web/src/views/DeviceView.vue` 中复用创建对话框用于编辑模式 — 预填当前设备数据，对话框标题改为"编辑设备"
-- [ ] T031 [US3] 在 `apps/web/src/views/DeviceView.vue` 中处理更新时的 404 (设备不存在) 和 409 (serialNumber 冲突) 错误
-- [ ] T032 [US3] 在 `apps/web/src/views/DeviceView.vue` 中更新成功后自动刷新设备列表
+- [x] T026 [US3] 在 `apps/server/src/routes/devices.ts` 中实现 GET `/api/devices/:id` 端点获取单个设备
+- [x] T027 [US3] 在 `apps/server/src/routes/devices.ts` 中实现 PUT `/api/devices/:id` 端点，包含验证和 P2002 处理 (唯一性检查排除自身)
+- [x] T028 [US3] 在 `apps/web/src/stores/device.ts` 中实现 `updateDevice(id, data)` action
+- [x] T029 [US3] 在 `apps/web/src/views/DeviceView.vue` 中为表格每行添加"编辑"操作按钮
+- [x] T030 [US3] 在 `apps/web/src/views/DeviceView.vue` 中复用创建对话框用于编辑模式 — 预填当前设备数据，对话框标题改为"编辑设备"
+- [x] T031 [US3] 在 `apps/web/src/views/DeviceView.vue` 中处理更新时的 404 (设备不存在) 和 409 (serialNumber 冲突) 错误
+- [x] T032 [US3] 在 `apps/web/src/views/DeviceView.vue` 中更新成功后自动刷新设备列表
 
 **检查点**: 设备编辑功能完整 — 编辑对话框预填、验证、冲突检测。US3 可独立测试。
 
@@ -119,11 +119,11 @@
 
 ### 用户故事 4 实现
 
-- [ ] T033 [US4] 在 `apps/server/src/routes/devices.ts` 中实现 DELETE `/api/devices/:id` 端点，包含 404 处理 (硬删除)
-- [ ] T034 [US4] 在 `apps/web/src/stores/device.ts` 中实现 `deleteDevice(id)` action
-- [ ] T035 [US4] 在 `apps/web/src/views/DeviceView.vue` 中为表格每行添加"删除"操作按钮，使用 `ElMessageBox.confirm` 确认对话框
-- [ ] T036 [US4] 在 `apps/web/src/views/DeviceView.vue` 中优雅处理 404 错误 (设备已被删除)
-- [ ] T037 [US4] 在 `apps/web/src/views/DeviceView.vue` 中删除成功后自动刷新设备列表并显示 `ElMessage` 成功提示
+- [x] T033 [US4] 在 `apps/server/src/routes/devices.ts` 中实现 DELETE `/api/devices/:id` 端点，包含 404 处理 (硬删除)
+- [x] T034 [US4] 在 `apps/web/src/stores/device.ts` 中实现 `deleteDevice(id)` action
+- [x] T035 [US4] 在 `apps/web/src/views/DeviceView.vue` 中为表格每行添加"删除"操作按钮，使用 `ElMessageBox.confirm` 确认对话框
+- [x] T036 [US4] 在 `apps/web/src/views/DeviceView.vue` 中优雅处理 404 错误 (设备已被删除)
+- [x] T037 [US4] 在 `apps/web/src/views/DeviceView.vue` 中删除成功后自动刷新设备列表并显示 `ElMessage` 成功提示
 
 **检查点**: 设备删除功能完整 — 确认对话框、硬删除、列表刷新。US4 可独立测试。
 
@@ -133,11 +133,11 @@
 
 **目标**: 用户体验改进和验证
 
-- [ ] T038 [P] 在 `apps/web/src/views/DeviceView.vue` 中为表格添加加载状态 (`v-loading`)
-- [ ] T039 [P] 在 `apps/web/src/stores/device.ts` 中为所有 API 调用添加网络错误处理，显示友好的 `ElMessage.error`
-- [ ] T040 [P] 在 `apps/web/src/views/DeviceView.vue` 中添加响应式表格布局，适配平板/桌面端
-- [ ] T041 运行 `quickstart.md` 验证 — 确认所有 curl 命令在运行的服务器上正常工作
-- [ ] T042 执行 `pnpm format` 确保所有新文件代码格式一致
+- [x] T038 [P] 在 `apps/web/src/views/DeviceView.vue` 中为表格添加加载状态 (`v-loading`)
+- [x] T039 [P] 在 `apps/web/src/stores/device.ts` 中为所有 API 调用添加网络错误处理，显示友好的 `ElMessage.error`
+- [x] T040 [P] 在 `apps/web/src/views/DeviceView.vue` 中添加响应式表格布局，适配平板/桌面端
+- [x] T041 运行 `quickstart.md` 验证 — 确认所有 curl 命令在运行的服务器上正常工作
+- [X] T042 执行 `pnpm format` 确保所有新文件代码格式一致
 
 ---
 
@@ -217,11 +217,11 @@
 ### 增量交付
 
 1. 设置 + 基础设施 → 骨架就绪
-2. + US1 (查看列表) → 只读 MVP，可独立测试
-3. + US2 (创建设备) → 可填充数据，可独立测试
-4. + US3 (更新设备) → 完整编辑能力，可独立测试
-5. + US4 (移除设备) → 完整生命周期管理，可独立测试
-6. + 优化 → 生产就绪的用户体验
+2. - US1 (查看列表) → 只读 MVP，可独立测试
+3. - US2 (创建设备) → 可填充数据，可独立测试
+4. - US3 (更新设备) → 完整编辑能力，可独立测试
+5. - US4 (移除设备) → 完整生命周期管理，可独立测试
+6. - 优化 → 生产就绪的用户体验
 
 ---
 

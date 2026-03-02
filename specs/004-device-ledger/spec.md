@@ -8,6 +8,7 @@
 ## Clarifications
 
 ### Session 2026-03-02
+
 - Q: 如何处理设备“位置”(Location)字段的数据格式？ → A: 使用自由文本字符串(Free text string)，简单直接，适合 MVP。
 - Q: 设备“状态”(Status)字段应包含哪些枚举值？ → A: 使用预定义枚举(Enum)：IN_USE(使用中), STORAGE(库存), MAINTENANCE(维修中), SCRAPPED(报废)。
 - Q: 删除设备时采取何种策略？ → A: 硬删除(Hard Delete)，物理移除数据，简化实现。

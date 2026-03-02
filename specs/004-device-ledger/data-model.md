@@ -8,29 +8,29 @@
 
 代表要跟踪的物理资产设备。
 
-| Field          | Type      | Constraints               | Description        |
-| -------------- | --------- | ------------------------- | ------------------ |
-| `id`           | String    | PK, UUID, auto-generated  | 设备唯一标识       |
-| `name`         | String    | NOT NULL                  | 设备名称           |
-| `model`        | String    | nullable                  | 设备型号           |
-| `serialNumber` | String    | NOT NULL, UNIQUE          | 序列号（全局唯一） |
-| `status`       | String    | NOT NULL, default: IN_USE | 设备状态           |
-| `purchaseDate` | DateTime  | nullable                  | 购买日期           |
-| `location`     | String    | nullable                  | 设备位置（自由文本）|
-| `description`  | String    | nullable                  | 设备描述           |
-| `createdAt`    | DateTime  | NOT NULL, auto            | 创建时间           |
-| `updatedAt`    | DateTime  | NOT NULL, auto            | 更新时间           |
+| Field          | Type     | Constraints               | Description          |
+| -------------- | -------- | ------------------------- | -------------------- |
+| `id`           | String   | PK, UUID, auto-generated  | 设备唯一标识         |
+| `name`         | String   | NOT NULL                  | 设备名称             |
+| `model`        | String   | nullable                  | 设备型号             |
+| `serialNumber` | String   | NOT NULL, UNIQUE          | 序列号（全局唯一）   |
+| `status`       | String   | NOT NULL, default: IN_USE | 设备状态             |
+| `purchaseDate` | DateTime | nullable                  | 购买日期             |
+| `location`     | String   | nullable                  | 设备位置（自由文本） |
+| `description`  | String   | nullable                  | 设备描述             |
+| `createdAt`    | DateTime | NOT NULL, auto            | 创建时间             |
+| `updatedAt`    | DateTime | NOT NULL, auto            | 更新时间             |
 
 ### Status Enum (状态枚举)
 
 应用层枚举，SQLite 存储为 String。
 
-| Value         | Label    | Description          |
-| ------------- | -------- | -------------------- |
-| `IN_USE`      | 使用中   | 设备正在使用         |
-| `STORAGE`     | 库存     | 设备在仓库中         |
-| `MAINTENANCE` | 维修中   | 设备正在维修         |
-| `SCRAPPED`    | 报废     | 设备已报废           |
+| Value         | Label  | Description  |
+| ------------- | ------ | ------------ |
+| `IN_USE`      | 使用中 | 设备正在使用 |
+| `STORAGE`     | 库存   | 设备在仓库中 |
+| `MAINTENANCE` | 维修中 | 设备正在维修 |
+| `SCRAPPED`    | 报废   | 设备已报废   |
 
 ## Prisma Schema
 
@@ -97,10 +97,10 @@ MAINTENANCE → SCRAPPED
 
 ## Indexes
 
-| Index            | Columns        | Type   | Purpose       |
-| ---------------- | -------------- | ------ | ------------- |
-| Primary Key      | `id`           | Unique | 主键          |
-| Serial Number    | `serialNumber` | Unique | 序列号唯一查找 |
-| (implicit)       | `createdAt`    | —      | 默认排序字段  |
+| Index         | Columns        | Type   | Purpose        |
+| ------------- | -------------- | ------ | -------------- |
+| Primary Key   | `id`           | Unique | 主键           |
+| Serial Number | `serialNumber` | Unique | 序列号唯一查找 |
+| (implicit)    | `createdAt`    | —      | 默认排序字段   |
 
 > SQLite 在万级数据下，`name` 和 `serialNumber` 的 LIKE 查询性能可接受，暂不建索引。
