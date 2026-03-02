@@ -5,6 +5,13 @@
 **Status**: Draft  
 **Input**: User description: "实现设备台账管理功能，能够进行设备基本信息的管理。"
 
+## Clarifications
+
+### Session 2026-03-02
+- Q: 如何处理设备“位置”(Location)字段的数据格式？ → A: 使用自由文本字符串(Free text string)，简单直接，适合 MVP。
+- Q: 设备“状态”(Status)字段应包含哪些枚举值？ → A: 使用预定义枚举(Enum)：IN_USE(使用中), STORAGE(库存), MAINTENANCE(维修中), SCRAPPED(报废)。
+- Q: 删除设备时采取何种策略？ → A: 硬删除(Hard Delete)，物理移除数据，简化实现。
+
 ## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - View Device List (查看设备列表) (Priority: P1)
@@ -85,14 +92,14 @@
 - **FR-003**: 系统必须提供设备列表视图，至少显示：名称、型号、序列号、状态和位置。
 - **FR-004**: 系统必须支持设备列表的分页，以处理大量记录。
 - **FR-005**: 系统必须允许用户按名称或序列号搜索/过滤设备列表。
-- **FR-006**: 系统必须允许用户更新现有设备的详细信息。
+- **FR-006**: 系统必须允许用户更新现有设备的执行物理删除/硬删除，操作不可逆
 - **FR-007**: 系统必须允许用户删除设备记录（建议软删除以保留历史记录，但在用户界面上应反映为移除）。
 - **FR-008**: 系统必须要求在创建和更新期间，名称和序列号不得为空。
 
 ### Key Entities
 
 - **Device (设备)**: 代表要跟踪的物理资产。
-  - **Attributes**: ID (UUID/自增), Name (名称 - 字符串), Model (型号 - 字符串), Serial Number (序列号 - 字符串, 唯一), Status (状态 - 枚举: 例如: 使用中, 存储中, 维护中, 已报废), Purchase Date (购买日期 - 日期), Location (位置 - 字符串/关联), CreatedAt (创建时间 - 时间戳), UpdatedAt (更新时间 - 时间戳)。
+  - **Attributes**: ID (UUID/自增), Name (名称 - 字符串), Model (型号 - 字符串), Serial Number (序列号 - 字符串, 唯一), Status (状态 - 枚举: IN_USE/使用中, STORAGE/库存, MAINTENANCE/维修中, SCRAPPED/报废), Purchase Date (购买日期 - 日期), Location (位置 - 自由文本字符串), CreatedAt (创建时间 - 时间戳), UpdatedAt (更新时间 - 时间戳)。
 
 ## Success Criteria _(mandatory)_
 
